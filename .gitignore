@@ -4,3 +4,4 @@ venv
 db.sqlite3
 __pucache__
 __pucache__/
+media/
