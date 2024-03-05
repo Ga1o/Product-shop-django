@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="d-flex col-4 justify-content-between">
+    <h1 class="h2 mb-3 fw-normal">{{ product.product_name }}</h1>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        <img class="w-100" src="{{ product.product_image.url }}" alt="">
+    </div>
+    <div class="col-4">
+        <h2>{{ product.product_price }} Р</h2>
+    </div>
+</div>
+
+<div class="row mt-5 col-5">
+    <h2>Описание продукта</h2>
+    <p>{{ product.product_desc }}</p>
+</div>
+
+{% endblock %}

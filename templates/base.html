@@ -17,8 +17,6 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
-
-
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'main_app:index' %}">Главная</a>
@@ -27,7 +25,7 @@
                 <a class="nav-link" href="{% url 'main_app:about' %}">О нас</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Контакты</a>
+                <a class="nav-link" href="{% url 'main_app:contact' %}">Контакты</a>
               </li>
               <li class="nav-item ms-2">
                   {% if user == None %}
@@ -37,7 +35,6 @@
                     <a class="btn btn-outline-dark" href="{% url 'user_app:logout' %}">Выйти</a>
                   {% endif %}
               </li>
-
             </ul>
           </div>
         </nav>
@@ -61,7 +58,7 @@
               <li class="nav-item mb-2"><a href="{% url 'main_app:index' %}" class="nav-link p-0 text-muted">Главная</a></li>
               <li class="nav-item mb-2"><a href="{% url 'main_app:about' %}" class="nav-link p-0 text-muted">О нас</a></li>
               <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Каталог</a></li>
-              <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Контакты</a></li>
+              <li class="nav-item mb-2"><a href="{% url 'main_app:contact' %}" class="nav-link p-0 text-muted">Контакты</a></li>
             </ul>
           </div>
 

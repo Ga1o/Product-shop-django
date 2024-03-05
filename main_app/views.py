@@ -25,3 +25,15 @@ class AboutView(View):
 
         data = {'user': None}
         return render(request, 'main_app/about.html', data)
+
+
+class ContactView(View):
+    def get(self, request):
+        if 'user_id' in request.session:
+            user_id = request.session['user_id']
+            user = CustomUser.objects.get(pk=user_id)
+            data = {'user': user}
+            return render(request, 'main_app/contact.html', data)
+
+        data = {'user': None}
+        return render(request, 'main_app/contact.html', data)
