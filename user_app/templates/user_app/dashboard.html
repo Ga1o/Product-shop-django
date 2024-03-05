@@ -7,4 +7,30 @@
     <hr><br>
 </div>
 
+<div class="row">
+    <h3>Избранные продукты</h3>
+    {% for product in products %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <a href="{{ product.get_absolute_url }}"><img src="{{ product.product_image.url }}" class="main_img" alt="{{ product.product_name }}"></a>
+            </div>
+            <div class="card-body bg-light p-2">
+                <a href="{{ product.get_absolute_url }}" class="text-decoration-none"><h5>{{ product.product_name }}</h5></a>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <p>{{ product.product_price }} P</p>
+                    </div>
+                    <div class="col-6">
+                        <form action="{% url 'favorites_app:remove_from_favorites' product.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Удалить" class="form-control">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
 {% endblock  %}

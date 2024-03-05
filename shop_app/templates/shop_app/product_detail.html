@@ -12,6 +12,12 @@
     </div>
     <div class="col-4">
         <h2>{{ product.product_price }} Р</h2>
+
+        <form action="{% url 'favorites_app:add_to_favorite' product.id %}" method="post" class="col-4 mt-2">
+            {% csrf_token %}
+            <input type="submit" value="В избранное" class="form-control">
+        </form>
+
     </div>
 </div>
 

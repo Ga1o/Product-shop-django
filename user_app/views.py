@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .models import CustomUser
+from favorites_app.models import FavoriteProduct
+from shop_app.models import Product
 from django.contrib import messages
 from .forms import RegisterForm, LoginForm, ForgotPasswordForm, CheckSecretCodeForm, NewPasswordForm
 from django.contrib.auth.hashers import make_password, check_password
@@ -263,7 +265,10 @@ class UserDashboardView(View):
         if 'user_id' in request.session:
             user_id = request.session['user_id']
             user = CustomUser.objects.get(pk=user_id)
-            data = {'user': user}
+            favorites_products = FavoriteProduct.objects.filter(user_id=user_id)
+            ids = [favorites_product.product_id for favorites_product in favorites_products]
+            products = Product.objects.filter(id__in=ids)
+            data = {'user': user, 'products': products}
             return render(request, 'user_app/dashboard.html', data)
 
         return redirect('user_app:login')
