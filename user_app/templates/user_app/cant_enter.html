@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block  main %}
+
+<div class="row">
+    <div class="col-4 mx-auto">
+        <h1>Выбирете причину</h1>
+
+    
+        <a class="btn btn-primary" href="{% url 'user_app:forgot_password' %}">Забыл пароль</a>
+        <a class="btn btn-primary" href="{% url 'user_app:need_activate' %}">Не активирован</a>
+    </div>
+</div>
+
+{% endblock  %}

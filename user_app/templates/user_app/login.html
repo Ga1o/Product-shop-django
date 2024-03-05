@@ -1,6 +1,37 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 
 {% block main %}
-<h1>Login page</h1>
-{% endblock %}
+<div class="form-signin col-md-4 mx-auto">
+    <h1 class="h3 mb-3 fw-normal">Войти</h1>
+
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post">
+      {% csrf_token %}
+      <div>{{ form.non_field_errors }}</div>
+
+      {% for f in form %}
+        <div class="mt-2">
+          <label for="{{ f.id_for_label }}">{{ f.label }}</label>
+          <p>{{ f }}</p>
+          <div>{{ f.errors }}</div>
+        </div>
+      {% endfor %}
+
+
+      <button class="w-100 btn btn-lg btn-primary mt-2" type="submit">Войти</button>
+      <a class="w-100 btn btn-lg btn-primary mt-2" href="{% url 'user_app:register' %}">Регистрация</a>
+      <a class="w-100 btn btn-lg btn-warning mt-2" href="{% url 'user_app:cant_enter' %}">Не войти?</a>
+    </form>
+
+  </div>
+
+{% endblock  %}
