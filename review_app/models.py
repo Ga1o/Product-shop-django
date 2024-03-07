@@ -7,9 +7,6 @@ class UserReview(models.Model):
     review_text = models.TextField(max_length=2000)
     review_data = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.user_id
-
     class Meta:
         ordering = ('-id',)
         verbose_name = 'Отзывы'
