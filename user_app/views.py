@@ -8,7 +8,7 @@ from .forms import RegisterForm, LoginForm, ForgotPasswordForm, CheckSecretCodeF
 from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import logout
 from random import randint
-from .send_email import send_email
+from .tasks import send_email_task
 
 
 class UserLoginView(View):
@@ -94,7 +94,7 @@ class UserRegisterView(View):
                     new_user.save()
                     secret_code = randint(1000, 9999)
                     try:
-                        send_email('Секретный код', user_email, secret_code)
+                        send_email_task.delay('Секретный код', user_email, secret_code)
                         request.session['secret_code'] = secret_code
                         request.session['user_email'] = user_email
                         return redirect('user_app:email_confirm')
@@ -158,7 +158,7 @@ class UserNeedActivateView(View):
         if user is not None:
             secret_code = randint(1000, 9999)
             try:
-                send_email('Секретный код', user_email, secret_code)
+                send_email_task.delay('Секретный код', user_email, secret_code)
                 request.session['secret_code'] = secret_code
                 request.session['user_email'] = user_email
                 return redirect('user_app:check_secret_code')
@@ -186,7 +186,7 @@ class UserForgotPasswordView(View):
         if user is not None:
             secret_code = randint(1000, 9999)
             try:
-                send_email('Секретный код', user_email, secret_code)
+                send_email_task.delay('Секретный код', user_email, secret_code)
                 request.session['secret_code'] = secret_code
                 request.session['user_email'] = user_email
                 return redirect('user_app:check_secret_code_register')
