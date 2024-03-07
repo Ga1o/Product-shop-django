@@ -1,6 +1,7 @@
 * Product Shop project
 
-Django base project of product shop with register, auth users and reset password.
+Django base project of product shop with register, auth users, reset password, product reviews, 
+list of favorites products, search of products by name.
 
 Libraries:
 - django

@@ -28,6 +28,7 @@ urlpatterns = [
     path('', include('favorites_app.urls', namespace='favorites_app')),
     path('', include('review_app.urls', namespace='review_app')),
     path('', include('search_app.urls', namespace='search_app')),
+    path('', include('rating_app.urls', namespace='rating_app')),
 ]
 
 

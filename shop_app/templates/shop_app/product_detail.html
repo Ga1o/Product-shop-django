@@ -4,6 +4,9 @@
 
 <div class="d-flex col-4 justify-content-between">
     <h1 class="h2 mb-3 fw-normal">{{ product.product_name }}</h1>
+    {% if fact_rating %}
+        <div class="d-flex flex-direction-row"><span class="fs-4">&#11088;</span><span class="fs-3 ms-1">{{ fact_rating }}</span></div>
+    {% endif %}
 </div>
 
 <div class="row">
@@ -12,6 +15,16 @@
     </div>
     <div class="col-4">
         <h2>{{ product.product_price }} Р</h2>
+        <div class="d-flex">
+            <a href="{% url 'rating_app:add_rating' product.id 1 %}" class="fs-3">&#9734;</a>
+            <a href="{% url 'rating_app:add_rating' product.id 2 %}" class="fs-3">&#9734;</a>
+            <a href="{% url 'rating_app:add_rating' product.id 3 %}" class="fs-3">&#9734;</a>
+            <a href="{% url 'rating_app:add_rating' product.id 4 %}" class="fs-3">&#9734;</a>
+            <a href="{% url 'rating_app:add_rating' product.id 5 %}" class="fs-3">&#9734;</a>
+        </div>
+        <hr>
+        <a href="{% url 'search_app:category_search' product.product_category.category_slug  %}">{{ product.product_category }}</a>
+        <hr>
 
         <form action="{% url 'favorites_app:add_to_favorite' product.id %}" method="post" class="col-4 mt-2">
             {% csrf_token %}

@@ -4,6 +4,7 @@ from .models import Product
 from user_app.models import CustomUser
 from review_app.forms import UserReviewForm
 from review_app.models import UserReview
+from rating_app.models import ProductRating
 
 
 class ProductDetailView(View):
@@ -15,16 +16,21 @@ class ProductDetailView(View):
         users_ids = [review.user_id for review in reviews]
         review_users = CustomUser.objects.filter(id__in=users_ids)
 
+        fact_rating = None
+        get_rating = ProductRating.objects.filter(product_id=product.id)
+
+        if get_rating:
+            product_ratings = [rating.rating_value for rating in get_rating]
+            fact_rating = sum(product_ratings) / len(product_ratings)
+
         if 'user_id' in request.session:
             user_id = request.session['user_id']
             user = CustomUser.objects.get(pk=user_id)
 
             data = {'user': user, 'product': product, 'review_form': review_form, 'reviews': reviews,
-                    'review_users': review_users}
-
+                    'review_users': review_users, 'fact_rating': fact_rating}
             return render(request, 'shop_app/product_detail.html', data)
 
         data = {'user': None, 'product': product, 'review_form': review_form, 'reviews': reviews,
-                'review_users': review_users}
-
+                'review_users': review_users, 'fact_rating': fact_rating}
         return render(request, 'shop_app/product_detail.html', data)
