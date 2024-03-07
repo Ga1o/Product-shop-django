@@ -26,4 +26,40 @@
     <p>{{ product.product_desc }}</p>
 </div>
 
+<div class="row">
+    <h2 class="mt-5">Отзывы</h2>
+    <div class="col-7">
+        {% for review in reviews %}
+            {% for users in review_users %}
+                {% if review.user_id == users.id %}
+                    <div class="row bg-light p-2 mt-2">
+                        <div class="col-8">
+                            <h6>{{ users.user_name }}</h6>
+                            <p>{{ review.review_text }}</p>
+                        </div>
+                        {% if user and user.id == review.user_id %}
+                            <div class="row col-4 align-items-center">
+                                <form action="{% url 'review_app:remove_review' review.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Удалить отзыв" class="form-control">
+                                </form>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% empty %}
+            <p>Отзывов пока нет</p>
+        {% endfor %}
+    </div>
+
+    <div class="col-7 mt-3">
+        <form action="{% url 'review_app:add_review' product.id %}" method="post">
+            {% csrf_token %}
+            {{ review_form }}
+            <input type="submit" value="Добавить отзыв" class="form-control mt-2">
+        </form>
+    </div>
+</div>
+
 {% endblock %}

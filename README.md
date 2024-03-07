@@ -7,4 +7,6 @@ Libraries:
 - pillow
 
 For correct work you need to:
+- make migrations
 - create folder 'media/product_images/' in root directory 
+- create superuser for adding products in admin panel
