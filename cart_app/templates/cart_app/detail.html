@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<h1 class="h2 mb-3 fw-normal">Корзина</h1>
+
+<div class="row">
+  <div class="col">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Изображение</th>
+        <th>Название</th>
+        <th>Изменить</th>
+        <th>Удалить</th>
+        <th>Кол-во</th>
+        <th>Цена</th>
+        <th>Сумма</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for item in cart %}
+        {% with product=item.product %}
+          <tr class="align-middle">
+            <td class="col-2">
+              <a href="{{ product.get_absolute_url }}" class="col-2">
+                <img src="{{ product.product_image.url }}" alt="" class="w-100">
+              </a>
+            </td>
+            <td>
+              {{ product.product_name }}
+            </td>
+            <td>
+              <form action="{% url 'cart_app:cart_add' product.id %}" method="post">
+                {% csrf_token %}
+                <div class="d-flex flex-direction-row">
+                  {{ item.update_quantity_form.quantity }}
+                  {{ item.update_quantity_form.update }}
+                  <input type="submit" value="Изменить" class="form-control ms-1">
+                </div>
+              </form>
+            </td>
+            <td>
+              <a href="{% url 'cart_app:cart_remove' product.id %}" class="btn btn-danger">Удалить</a>
+            </td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.price }} Р</td>
+            <td>{{ item.total_price }} Р</td>
+          </tr>
+        {% endwith %}
+      {% endfor %}
+      <tr>
+        <td>Всего</td>
+        <td>{{ cart.get_total_price }} Р</td>
+      </tr>
+      </tbody>
+    </table>
+
+
+    <a class="btn btn-primary" href="{% url 'main_app:index' %}">Назад в магазин</a>
+    <a class="btn btn-success" href="#">Оформить заказ</a>
+
+  </div>
+</div>
+{% endblock %}

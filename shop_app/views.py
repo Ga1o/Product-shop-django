@@ -5,12 +5,13 @@ from user_app.models import CustomUser
 from review_app.forms import UserReviewForm
 from review_app.models import UserReview
 from rating_app.models import ProductRating
+from cart_app.forms import CartAddProductForm
 
 
 class ProductDetailView(View):
     def get(self, request, product_slug):
         product = get_object_or_404(Product, product_slug=product_slug)
-
+        cart_product_form = CartAddProductForm()
         review_form = UserReviewForm()
         reviews = UserReview.objects.filter(product_id=product.id)
         users_ids = [review.user_id for review in reviews]
@@ -28,9 +29,9 @@ class ProductDetailView(View):
             user = CustomUser.objects.get(pk=user_id)
 
             data = {'user': user, 'product': product, 'review_form': review_form, 'reviews': reviews,
-                    'review_users': review_users, 'fact_rating': fact_rating}
+                    'review_users': review_users, 'fact_rating': fact_rating, 'cart_product_form': cart_product_form}
             return render(request, 'shop_app/product_detail.html', data)
 
         data = {'user': None, 'product': product, 'review_form': review_form, 'reviews': reviews,
-                'review_users': review_users, 'fact_rating': fact_rating}
+                'review_users': review_users, 'fact_rating': fact_rating, 'cart_product_form': cart_product_form}
         return render(request, 'shop_app/product_detail.html', data)

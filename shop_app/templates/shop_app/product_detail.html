@@ -26,6 +26,13 @@
         <a href="{% url 'search_app:category_search' product.product_category.category_slug  %}">{{ product.product_category }}</a>
         <hr>
 
+        <form action="{% url 'cart_app:cart_add' product.id %}" method="post" class="col-4">
+            {% csrf_token %}
+            {{ cart_product_form }}
+            <input type="submit" class="form-control mt-2" value="В корзину">
+        </form>
+        <hr>
+
         <form action="{% url 'favorites_app:add_to_favorite' product.id %}" method="post" class="col-4 mt-2">
             {% csrf_token %}
             <input type="submit" value="В избранное" class="form-control">

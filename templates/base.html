@@ -32,6 +32,19 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'main_app:contact' %}">Контакты</a>
               </li>
+              <li class="nav-item">
+                  {% with total_items=cart|length %}
+                      {% if cart|length > 0 %}
+                          <a class="btn btn-outline-dark" href="{% url 'cart_app:cart_detail' %}">
+                            Корзина: {{ total_items }} | {{ cart.get_total_price }}
+                          </a>
+                      {% else %}
+                          <a class="btn btn-outline-dark" href="{% url 'cart_app:cart_detail' %}">
+                            Корзина
+                          </a>
+                      {% endif %}
+                  {% endwith %}
+              </li>
               <li class="nav-item ms-2">
                   {% if user == None %}
                     <a class="btn btn-outline-dark" href="{% url 'user_app:login' %}">Войти</a>
