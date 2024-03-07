@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1>Результат поиска</h1>
+
+<div class="row">
+    {% for product in products %}
+        <div class="col-md-3">
+            <div class="card">
+                <a href="{{ product.get_absolute_url }}"><img src="{{ product.product_image.url }}" class="main_img" alt="{{ product.product_name }}"></a>
+            </div>
+            <div class="card-body bg-light p-2">
+                <a href="{{ product.get_absolute_url }}" class="text-decoration-none"><h5>{{ product.product_name }}</h5></a>
+                <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <p>{{ product.product_price }} P</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

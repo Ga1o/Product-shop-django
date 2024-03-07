@@ -27,6 +27,7 @@ urlpatterns = [
     path('', include('shop_app.urls', namespace='shop_app')),
     path('', include('favorites_app.urls', namespace='favorites_app')),
     path('', include('review_app.urls', namespace='review_app')),
+    path('', include('search_app.urls', namespace='search_app')),
 ]
 
 

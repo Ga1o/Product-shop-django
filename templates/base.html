@@ -17,6 +17,11 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse justify-content-end">
+            <form action="{% url 'search_app:search' %}" method="post" class="col-4 me-5">
+              {% csrf_token %}
+              <input type="text" name="user_request" placeholder="Поиск" class="form-control">
+            </form>
+
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <a class="nav-link" href="{% url 'main_app:index' %}">Главная</a>
