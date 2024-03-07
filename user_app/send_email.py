@@ -1,5 +1,10 @@
 import smtplib
 from email.mime.text import MIMEText
+import logging
+
+
+logging.basicConfig(filename='app.log', format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def send_email(subject, email, message):
@@ -16,6 +21,5 @@ def send_email(subject, email, message):
         server.sendmail(sender, email, msg.as_string())
         server.quit()
 
-    except Exception as _ex:
-        # TODO заменить принт на логирование
-        print(f'{_ex}\nПроверьте email и пароль для подключения.')
+    except Exception as e:
+        logger.error(f"Ошибка в получении доступа: {e}", exc_info=True)
